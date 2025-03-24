@@ -75,7 +75,7 @@ export default function Home() {
 							</Button>
 						</Link>
 						<Button variant="default" asChild>
-							<a href="/Joshua_Olaoye_Resume.pdf" download>
+							<a href="/Joshua_Olaoye_Resume.pdf" target="_blank" rel="noopener noreferrer">
 								<Download className="mr-2 h-4 w-4" /> Resume
 							</a>
 						</Button>
@@ -193,7 +193,7 @@ export default function Home() {
 						<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 							<Card className="overflow-hidden">
 								<div className="relative h-48">
-									<Image src="/placeholder.svg?height=400&width=600" alt="SuCasa Project" fill className="object-cover" />
+									<Image src="https://sucasa.com.gh/static/media/SUCASA-LOGOwhite.565a102512a8ba6c1336.png?height=400&width=600" alt="SuCasa Project" fill className="object-cover" />
 								</div>
 								<CardContent className="p-6 space-y-4">
 									<div className="space-y-2">
@@ -206,11 +206,11 @@ export default function Home() {
 										<Badge variant="outline">MongoDB</Badge>
 									</div>
 									<div className="flex justify-between pt-2">
-										<Button variant="outline" size="sm" asChild>
+										{/* <Button variant="outline" size="sm" asChild>
 											<Link href="https://github.com/jayhklasiq/sucasa" target="_blank" rel="noopener noreferrer">
 												<Github className="mr-2 h-4 w-4" /> Code
 											</Link>
-										</Button>
+										</Button> */}
 										<Button size="sm" asChild>
 											<Link href="https://sucasa.com.gh/" target="_blank" rel="noopener noreferrer">
 												<ExternalLink className="mr-2 h-4 w-4" /> Live Demo
@@ -222,7 +222,7 @@ export default function Home() {
 
 							<Card className="overflow-hidden">
 								<div className="relative h-48">
-									<Image src="/placeholder.svg?height=400&width=600" alt="TLV Project" fill className="object-cover" />
+									<Image src="https://img1.wsimg.com/isteam/ip/8323d043-97e3-46e4-9345-b25f6b13c867/leadership%20voice%20Logo%20Gold_.png/:/rs=w:224,h:160,cg:true,m/cr=w:224,h:160/qt=q:95?height=400&width=600" alt="TLV Project" fill className="object-cover" />
 								</div>
 								<CardContent className="p-6 space-y-4">
 									<div className="space-y-2">
@@ -251,7 +251,7 @@ export default function Home() {
 
 							<Card className="overflow-hidden">
 								<div className="relative h-48">
-									<Image src="/placeholder.svg?height=400&width=600" alt="HiveCare Project" fill className="object-cover" />
+									<Image src="https://jayhklasiq.github.io/HiveCare/public/images/hivecare%20-%20Copy.PNG?height=400&width=600" alt="HiveCare Project" fill className="object-cover" />
 								</div>
 								<CardContent className="p-6 space-y-4">
 									<div className="space-y-2">
