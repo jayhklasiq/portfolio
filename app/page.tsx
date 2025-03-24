@@ -138,10 +138,22 @@ export default function Home() {
 								</div>
 								<h3 className="text-xl font-semibold pt-2">Certifications</h3>
 								<div className="flex flex-wrap gap-2">
-									<Badge variant="secondary">Web and Computer Programming</Badge>
-									<Badge variant="secondary">Software Development</Badge>
-									<Badge variant="secondary">Web Development</Badge>
-									<Badge variant="secondary">Full Stack Web Development</Badge>
+									<a href="https://www.michaelsutter.com/ediploma?fn=diplomastatuscheck&key=02000000dd1fa1bdf2392a1a67aed8351deed93879ff469dcf60001aa5031dd7e8c71e5e654b57e271dc5a3f65953c7f26dac1bf2f83bfdbafc989883c8d51ee2e72a9b2" target="_blank" rel="noopener noreferrer">
+										<Badge variant="secondary">Web Frontend</Badge>
+									</a>
+
+									<a href="https://www.michaelsutter.com/ediploma?fn=diplomastatuscheck&key=020000005312059bd61f00b568a36b2931df53c29188a2827042f7ff88872d2e49b564273c2837641ec0a1e62c73754655205c4ba6276e1ac1d04801cd18526d2406c255" target="_blank" rel="noopener noreferrer">
+										<Badge variant="secondary">Web and Computer Programming</Badge>
+									</a>
+									<a href="https://www.michaelsutter.com/ediploma?fn=diplomastatuscheck&key=02000000aea61b29c7f97b70e23dc52fc422f580a59b184ed5d19b02ad5095ab0eba56f278bd2eb5052f97c409328e8c0354abd115d32c0abccefbb25249291e9e8b2b42" target="_blank" rel="noopener noreferrer">
+										<Badge variant="secondary">Software Development</Badge>
+									</a>
+									<a href="https://www.michaelsutter.com/ediploma?fn=diplomastatuscheck&key=02000000d3dd9cf74d259bcf9fe1847fb1cc45a9fc5cf2f119f2580d496d013ddd7fa1d98cfacb44d2785bad5f1319a6706eb33ada33a343d0f353c01af8e0a498cdea5a" target="_blank" rel="noopener noreferrer">
+										<Badge variant="secondary">Web Development</Badge>
+									</a>
+									<a href="https://www.michaelsutter.com/ediploma?fn=diplomastatuscheck&key=020000008b5c65116f2039346926be5db557652f0db71d90c27c7ae13e81ac1fbea1f8c1d61e1ffc03f4af4276e8806eb50e1a9bcbba086ba9412dd0a35e7ad8b2300743" target="_blank" rel="noopener noreferrer">
+										<Badge variant="secondary">Full Stack Web Development</Badge>
+									</a>
 								</div>
 							</div>
 						</div>
