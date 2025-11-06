@@ -75,7 +75,7 @@ export default function Home() {
 							</Button>
 						</Link>
 						<Button variant="default" asChild>
-							<a href="/Joshua_Olaoye_Resume.pdf" target="_blank" rel="noopener noreferrer">
+							<a href="/Joshua%20Olaoye%20-%20Resume-.pdf" download="Joshua_Olaoye_Resume.pdf">
 								<Download className="mr-2 h-4 w-4" /> Resume
 							</a>
 						</Button>
@@ -167,31 +167,53 @@ export default function Home() {
 						<div className="space-y-8">
 							<div className="border rounded-lg p-6 space-y-4">
 								<div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
-									<h3 className="text-xl font-semibold">Full-Stack Developer Intern</h3>
-									<Badge className="w-fit">Sep 2024 - Dec 2024</Badge>
+									<h3 className="text-xl font-semibold">Marketing Lead</h3>
+									<Badge className="w-fit">May 2025 – Present</Badge>
 								</div>
-								<p className="text-muted-foreground">BuildBoss LLC | Idaho Falls, USA (Remote)</p>
+								<p className="text-muted-foreground">Lazer IT Consultants | Palm Desert, CA (Remote)</p>
 								<ul className="space-y-2 list-disc pl-5">
-									<li>Engineered scalable full-stack web applications using Angular, Node.js, and Express.js, ensuring optimal performance and reliability for a leading construction project management platform.</li>
-									<li>Designed and integrated RESTful APIs and optimized MongoDB database queries, achieving faster data retrieval and enhancing system performance by 30%.</li>
-									<li>Created dynamic dashboards and interactive user interfaces in Angular, prioritizing responsive and user-centric designs.</li>
-									<li>Conducted unit testing, integration testing, and rigorous debugging to ensure high-quality code standards and system functionality.</li>
-									<li>Improved system scalability by implementing efficient backend services, reducing application latency by 25%.</li>
+									<li>Identified & qualified 50+ SMB leads monthly across the Coachella Valley through targeted research and list cleaning focused on high-potential verticals (healthcare, legal, finance).</li>
+									<li>Drafted and personalized 120+ outreach emails for “Get to Know Us” offers and coordinated with IT specialists to schedule 15–20 monthly meetings.</li>
+									<li>Executed 80+ weekly follow-up calls to confirm receipt of info packages, answer initial questions, and assess interest in cybersecurity/compliance services.</li>
+									<li>Managed end-to-end Info Package campaigns, achieving a 35% meeting conversion rate among engaged prospects.</li>
+								</ul>
+							</div>
+
+							<div className="border rounded-lg p-6 space-y-4">
+								<div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
+									<h3 className="text-xl font-semibold">Full-Stack Web Developer</h3>
+									<Badge className="w-fit">Jan 2025 – Present</Badge>
+								</div>
+								<p className="text-muted-foreground">Freelance | Remote</p>
+								<ul className="space-y-2 list-disc pl-5">
+									<li>Developed responsive frontend for SuCasa Ghana using Tailwind CSS, JavaScript, and AOS—implementing navigation systems, scroll animations, and styled components for listings.</li>
+									<li>Built HiveCare’s mobile/web UI from scratch with HTML, Tailwind CSS, and vanilla JS; architected full‑stack TLV with Node.js and EJS templates.</li>
+									<li>Delivered production-ready apps across 3 client projects with a 0% failure rate using modern stacks (Tailwind, Node.js, vanilla JS).</li>
+								</ul>
+							</div>
+
+							<div className="border rounded-lg p-6 space-y-4">
+								<div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
+									<h3 className="text-xl font-semibold">Full-Stack Web Developer Intern</h3>
+									<Badge className="w-fit">Sep 2024 – Dec 2024</Badge>
+								</div>
+								<p className="text-muted-foreground">BuildBoss LLC | Idaho Falls (Remote)</p>
+								<ul className="space-y-2 list-disc pl-5">
+									<li>Engineered scalable full‑stack components with Angular, Node.js, Express.js; optimized MongoDB for ~30% performance gains.</li>
+									<li>Created responsive dashboards and interactive UIs with a user‑centric focus.</li>
+									<li>Improved scalability and reduced latency by ~25% via efficient backend services, testing, and debugging.</li>
 								</ul>
 							</div>
 
 							<div className="border rounded-lg p-6 space-y-4">
 								<div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
 									<h3 className="text-xl font-semibold">IT Technician</h3>
-									<Badge className="w-fit">Jan 2018 - Jan 2020</Badge>
+									<Badge className="w-fit">Jan 2018 – Jan 2020</Badge>
 								</div>
-								<p className="text-muted-foreground">Insurance Supermarket International USA | Miami, Florida, USA (Remote)</p>
+								<p className="text-muted-foreground">Insurance Supermarket International USA | Miami, Florida (Remote)</p>
 								<ul className="space-y-2 list-disc pl-5">
-									<li>Configured and deployed new employee systems, including cable management, operating systems, and required software, ensuring readiness for productivity on day one.</li>
-									<li>Conducted in-depth computer diagnostics and resolved technical issues for an average of two employees daily, achieving a 95% issue resolution rate within 24 hours.</li>
-									<li>Monitored and improved system performance, consulting with management to define requirements for new hardware and software, resulting in a 20% improvement in operational efficiency.</li>
-									<li>Collaborated with a team to design, install, and configure Windows Server environments for a refinery plant site office, reducing system downtime by 25%.</li>
-									<li>Documented and maintained standard operating procedures for IT configurations, enhancing team efficiency and knowledge-sharing.</li>
+									<li>Resolved computer issues for ~2 employees daily with a 95% same‑day resolution rate.</li>
+									<li>Collaborated on Windows Server environment design and deployment, cutting downtime by 25% and improving efficiency by 20%.</li>
 								</ul>
 							</div>
 						</div>
@@ -289,6 +311,122 @@ export default function Home() {
 									</div>
 								</CardContent>
 							</Card>
+
+						{/* Newly added featured projects */}
+						<Card className="overflow-hidden">
+							<div className="relative h-48">
+								<Image src="/placeholder.svg?height=400&width=600" alt="VoterX Project" fill className="object-cover" />
+							</div>
+							<CardContent className="p-6 space-y-4">
+								<div className="space-y-2">
+									<h3 className="text-xl font-semibold">VoterX</h3>
+									<p className="text-muted-foreground">Voting platform demo.</p>
+								</div>
+								<div className="flex flex-wrap gap-2">
+									<Badge variant="outline">React</Badge>
+									<Badge variant="outline">TypeScript</Badge>
+								</div>
+								<div className="flex justify-between pt-2">
+									<Button size="sm" asChild>
+										<Link href="https://voterx.netlify.app/" target="_blank" rel="noopener noreferrer">
+											<ExternalLink className="mr-2 h-4 w-4" /> Live Demo
+										</Link>
+									</Button>
+								</div>
+							</CardContent>
+						</Card>
+
+						<Card className="overflow-hidden">
+							<div className="relative h-48">
+								<Image src="/placeholder.svg?height=400&width=600" alt="Mandsouha Project" fill className="object-cover" />
+							</div>
+							<CardContent className="p-6 space-y-4">
+								<div className="space-y-2">
+									<h3 className="text-xl font-semibold">Mandsouha</h3>
+									<p className="text-muted-foreground">Business site.</p>
+								</div>
+								<div className="flex flex-wrap gap-2">
+									<Badge variant="outline">Next.js</Badge>
+									<Badge variant="outline">Tailwind CSS</Badge>
+								</div>
+								<div className="flex justify-between pt-2">
+									<Button size="sm" asChild>
+										<Link href="https://mandsouha.netlify.app/" target="_blank" rel="noopener noreferrer">
+											<ExternalLink className="mr-2 h-4 w-4" /> Live Demo
+										</Link>
+									</Button>
+								</div>
+							</CardContent>
+						</Card>
+
+						<Card className="overflow-hidden">
+							<div className="relative h-48">
+								<Image src="/placeholder.svg?height=400&width=600" alt="TopCat Medical Placements Project" fill className="object-cover" />
+							</div>
+							<CardContent className="p-6 space-y-4">
+								<div className="space-y-2">
+									<h3 className="text-xl font-semibold">TopCat Medical Placements</h3>
+									<p className="text-muted-foreground">Healthcare placements platform.</p>
+								</div>
+								<div className="flex flex-wrap gap-2">
+									<Badge variant="outline">React</Badge>
+									<Badge variant="outline">CSS</Badge>
+								</div>
+								<div className="flex justify-between pt-2">
+									<Button size="sm" asChild>
+										<Link href="https://www.topcatmedicalplcmts.com/" target="_blank" rel="noopener noreferrer">
+											<ExternalLink className="mr-2 h-4 w-4" /> Live Demo
+										</Link>
+									</Button>
+								</div>
+							</CardContent>
+						</Card>
+
+						<Card className="overflow-hidden">
+							<div className="relative h-48">
+								<Image src="/placeholder.svg?height=400&width=600" alt="Company Data Doctor Project" fill className="object-cover" />
+							</div>
+							<CardContent className="p-6 space-y-4">
+								<div className="space-y-2">
+									<h3 className="text-xl font-semibold">Company Data Doctor</h3>
+									<p className="text-muted-foreground">Company data insights tool.</p>
+								</div>
+								<div className="flex flex-wrap gap-2">
+									<Badge variant="outline">Next.js</Badge>
+									<Badge variant="outline">Charts</Badge>
+								</div>
+								<div className="flex justify-between pt-2">
+									<Button size="sm" asChild>
+										<Link href="https://company-data-doctor.vercel.app/" target="_blank" rel="noopener noreferrer">
+											<ExternalLink className="mr-2 h-4 w-4" /> Live Demo
+										</Link>
+									</Button>
+								</div>
+							</CardContent>
+						</Card>
+
+						<Card className="overflow-hidden">
+							<div className="relative h-48">
+								<Image src="/placeholder.svg?height=400&width=600" alt="Arc Project" fill className="object-cover" />
+							</div>
+							<CardContent className="p-6 space-y-4">
+								<div className="space-y-2">
+									<h3 className="text-xl font-semibold">Arc</h3>
+									<p className="text-muted-foreground">Arc app demo.</p>
+								</div>
+								<div className="flex flex-wrap gap-2">
+									<Badge variant="outline">React</Badge>
+									<Badge variant="outline">Tailwind CSS</Badge>
+								</div>
+								<div className="flex justify-between pt-2">
+									<Button size="sm" asChild>
+										<Link href="https://arc-theta-ten.vercel.app/" target="_blank" rel="noopener noreferrer">
+											<ExternalLink className="mr-2 h-4 w-4" /> Live Demo
+										</Link>
+									</Button>
+								</div>
+							</CardContent>
+						</Card>
 						</div>
 					</div>
 				</section>
