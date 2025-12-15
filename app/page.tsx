@@ -1,12 +1,22 @@
 "use client";
 
 import type React from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Github, Linkedin, Mail, ExternalLink, ChevronRight, Download } from "lucide-react";
+import { Mail, ExternalLink, ChevronRight, Download } from "lucide-react";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { ThemeToggle } from "@/components/theme-toggle";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register ScrollTrigger plugin
+if (typeof window !== "undefined") {
+	gsap.registerPlugin(ScrollTrigger);
+}
 
 // Fix the ScrollLink component with proper TypeScript types
 interface ScrollLinkProps {
@@ -36,6 +46,126 @@ const ScrollLink: React.FC<ScrollLinkProps> = ({ href, children, className }) =>
 };
 
 export default function Home() {
+	useEffect(() => {
+		// Animate navigation links on hover
+		const navLinks = document.querySelectorAll("nav a");
+		navLinks.forEach((link) => {
+			link.addEventListener("mouseenter", () => {
+				gsap.to(link, { scale: 1.05, duration: 0.2, ease: "power2.out" });
+			});
+			link.addEventListener("mouseleave", () => {
+				gsap.to(link, { scale: 1, duration: 0.2, ease: "power2.out" });
+			});
+		});
+
+		// Animate all buttons on hover and click (excluding theme toggle)
+		const buttons = document.querySelectorAll("button:not([aria-label*='theme']), a[role='button']");
+		buttons.forEach((button) => {
+			// Skip theme toggle button container
+			const isThemeToggle = button.closest("button")?.querySelector('svg[class*="lucide-moon"], svg[class*="lucide-sun"]');
+			if (isThemeToggle) return;
+
+			button.addEventListener("mouseenter", () => {
+				gsap.to(button, { scale: 1.05, y: -2, duration: 0.2, ease: "power2.out" });
+			});
+			button.addEventListener("mouseleave", () => {
+				gsap.to(button, { scale: 1, y: 0, duration: 0.2, ease: "power2.out" });
+			});
+			button.addEventListener("click", () => {
+				gsap.to(button, {
+					scale: 0.95,
+					duration: 0.1,
+					ease: "power2.out",
+					yoyo: true,
+					repeat: 1,
+				});
+			});
+		});
+
+		// Animate project cards on scroll and hover
+		const cards = document.querySelectorAll('[id="projects"] .overflow-hidden');
+		cards.forEach((card, index) => {
+			// Scroll-triggered fade-in
+			gsap.fromTo(
+				card,
+				{ opacity: 0, y: 30 },
+				{
+					opacity: 1,
+					y: 0,
+					duration: 0.6,
+					delay: index * 0.1,
+					ease: "power3.out",
+					scrollTrigger: {
+						trigger: card as Element,
+						start: "top 85%",
+						toggleActions: "play none none none",
+					},
+				}
+			);
+
+			// Hover animations
+			card.addEventListener("mouseenter", () => {
+				gsap.to(card, { y: -8, scale: 1.02, duration: 0.3, ease: "power2.out" });
+			});
+			card.addEventListener("mouseleave", () => {
+				gsap.to(card, { y: 0, scale: 1, duration: 0.3, ease: "power2.out" });
+			});
+		});
+
+		// Animate social icons (excluding theme toggle icons)
+		const icons = document.querySelectorAll("svg[class*='lucide']:not([class*='moon']):not([class*='sun'])");
+		icons.forEach((icon) => {
+			const parent = icon.closest("a, button");
+			if (!parent) return;
+
+			// Skip theme toggle
+			const isThemeToggle = parent.querySelector('svg[class*="moon"], svg[class*="sun"]');
+			if (isThemeToggle) return;
+
+			parent.addEventListener("mouseenter", () => {
+				gsap.to(icon, { scale: 1.2, rotation: 5, duration: 0.2, ease: "back.out(1.7)" });
+			});
+			parent.addEventListener("mouseleave", () => {
+				gsap.to(icon, { scale: 1, rotation: 0, duration: 0.2, ease: "back.out(1.7)" });
+			});
+		});
+
+		// Animate section headings on scroll
+		const headings = document.querySelectorAll("h2, h3");
+		headings.forEach((heading) => {
+			gsap.fromTo(
+				heading,
+				{ opacity: 0, y: 20 },
+				{
+					opacity: 1,
+					y: 0,
+					duration: 0.8,
+					ease: "power3.out",
+					scrollTrigger: {
+						trigger: heading as Element,
+						start: "top 90%",
+						toggleActions: "play none none none",
+					},
+				}
+			);
+		});
+
+		// Animate contact links
+		const contactLinks = document.querySelectorAll('[id="contact"] a');
+		contactLinks.forEach((link) => {
+			link.addEventListener("mouseenter", () => {
+				gsap.to(link, { x: 5, duration: 0.2, ease: "power2.out" });
+			});
+			link.addEventListener("mouseleave", () => {
+				gsap.to(link, { x: 0, duration: 0.2, ease: "power2.out" });
+			});
+		});
+
+		return () => {
+			ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+		};
+	}, []);
+
 	return (
 		<div className="flex flex-col min-h-screen">
 			{/* Header/Navigation */}
@@ -62,15 +192,16 @@ export default function Home() {
 						</ScrollLink>
 					</nav>
 					<div className="flex items-center gap-4">
+						<ThemeToggle />
 						<Link href="https://github.com/jayhklasiq" target="_blank" rel="noopener noreferrer">
 							<Button variant="ghost" size="icon">
-								<Github className="h-5 w-5" />
+								<FaGithub className="h-5 w-5" />
 								<span className="sr-only">GitHub</span>
 							</Button>
 						</Link>
 						<Link href="https://linkedin.com/in/joshua-olaoye" target="_blank" rel="noopener noreferrer">
 							<Button variant="ghost" size="icon">
-								<Linkedin className="h-5 w-5" />
+								<FaLinkedin className="h-5 w-5" />
 								<span className="sr-only">LinkedIn</span>
 							</Button>
 						</Link>
@@ -92,7 +223,7 @@ export default function Home() {
 								Full-Stack Developer <br />
 								<span className="text-primary">Building the web.</span>
 							</h1>
-							<p className="text-xl text-muted-foreground max-w-[600px]">I'm Joshua, a Junior Node JS Web Developer with 5+ years of IT experience specializing in full-stack web development.</p>
+							<p className="text-xl text-muted-foreground max-w-[600px]">I'm Joshua, a Node JS Web Developer with 5+ years of IT experience specializing in full-stack web development.</p>
 							<div className="flex gap-4 pt-4">
 								<Button asChild>
 									<ScrollLink href="#contact" className="inline-flex items-center justify-center">
@@ -242,7 +373,7 @@ export default function Home() {
 									<div className="flex justify-between pt-2">
 										{/* <Button variant="outline" size="sm" asChild>
 											<Link href="https://github.com/jayhklasiq/sucasa" target="_blank" rel="noopener noreferrer">
-												<Github className="mr-2 h-4 w-4" /> Code
+												<FaGithub className="mr-2 h-4 w-4" /> Code
 											</Link>
 										</Button> */}
 										<Button size="sm" asChild>
@@ -271,7 +402,7 @@ export default function Home() {
 									<div className="flex justify-between pt-2">
 										<Button variant="outline" size="sm" asChild>
 											<Link href="https://github.com/jayhklasiq/tlv" target="_blank" rel="noopener noreferrer">
-												<Github className="mr-2 h-4 w-4" /> Code
+												<FaGithub className="mr-2 h-4 w-4" /> Code
 											</Link>
 										</Button>
 										<Button size="sm" asChild>
@@ -300,7 +431,7 @@ export default function Home() {
 									<div className="flex justify-between pt-2">
 										<Button variant="outline" size="sm" asChild>
 											<Link href="https://github.com/jayhklasiq/HiveCare" target="_blank" rel="noopener noreferrer">
-												<Github className="mr-2 h-4 w-4" /> Code
+												<FaGithub className="mr-2 h-4 w-4" /> Code
 											</Link>
 										</Button>
 										<Button size="sm" asChild>
@@ -312,121 +443,121 @@ export default function Home() {
 								</CardContent>
 							</Card>
 
-						{/* Newly added featured projects */}
-						<Card className="overflow-hidden">
-							<div className="relative h-48">
-								<Image src="/placeholder.svg?height=400&width=600" alt="VoterX Project" fill className="object-cover" />
-							</div>
-							<CardContent className="p-6 space-y-4">
-								<div className="space-y-2">
-									<h3 className="text-xl font-semibold">VoterX</h3>
-									<p className="text-muted-foreground">Voting platform demo.</p>
+							{/* Newly added featured projects */}
+							<Card className="overflow-hidden">
+								<div className="relative h-48 bg-muted flex items-center justify-center">
+									<Image src="/VoterX.png" alt="VoterX Project" fill className="object-contain p-4" />
 								</div>
-								<div className="flex flex-wrap gap-2">
-									<Badge variant="outline">React</Badge>
-									<Badge variant="outline">TypeScript</Badge>
-								</div>
-								<div className="flex justify-between pt-2">
-									<Button size="sm" asChild>
-										<Link href="https://voterx.netlify.app/" target="_blank" rel="noopener noreferrer">
-											<ExternalLink className="mr-2 h-4 w-4" /> Live Demo
-										</Link>
-									</Button>
-								</div>
-							</CardContent>
-						</Card>
+								<CardContent className="p-6 space-y-4">
+									<div className="space-y-2">
+										<h3 className="text-xl font-semibold">VoterX</h3>
+										<p className="text-muted-foreground">Voting platform demo.</p>
+									</div>
+									<div className="flex flex-wrap gap-2">
+										<Badge variant="outline">React</Badge>
+										<Badge variant="outline">TypeScript</Badge>
+									</div>
+									<div className="flex justify-between pt-2">
+										<Button size="sm" asChild>
+											<Link href="https://voterx.netlify.app/" target="_blank" rel="noopener noreferrer">
+												<ExternalLink className="mr-2 h-4 w-4" /> Live Demo
+											</Link>
+										</Button>
+									</div>
+								</CardContent>
+							</Card>
 
-						<Card className="overflow-hidden">
-							<div className="relative h-48">
-								<Image src="/placeholder.svg?height=400&width=600" alt="Mandsouha Project" fill className="object-cover" />
-							</div>
-							<CardContent className="p-6 space-y-4">
-								<div className="space-y-2">
-									<h3 className="text-xl font-semibold">Mandsouha</h3>
-									<p className="text-muted-foreground">Business site.</p>
+							<Card className="overflow-hidden">
+								<div className="relative h-48 bg-muted flex items-center justify-center">
+									<Image src="https://mandsouha.netlify.app/lovable-uploads/dd48a3db-4547-4b5a-9eb6-d73eff208eb3.png" alt="Mandsouha Project" fill className="object-contain p-4" />
 								</div>
-								<div className="flex flex-wrap gap-2">
-									<Badge variant="outline">Next.js</Badge>
-									<Badge variant="outline">Tailwind CSS</Badge>
-								</div>
-								<div className="flex justify-between pt-2">
-									<Button size="sm" asChild>
-										<Link href="https://mandsouha.netlify.app/" target="_blank" rel="noopener noreferrer">
-											<ExternalLink className="mr-2 h-4 w-4" /> Live Demo
-										</Link>
-									</Button>
-								</div>
-							</CardContent>
-						</Card>
+								<CardContent className="p-6 space-y-4">
+									<div className="space-y-2">
+										<h3 className="text-xl font-semibold">Mandsouha</h3>
+										<p className="text-muted-foreground">Business site.</p>
+									</div>
+									<div className="flex flex-wrap gap-2">
+										<Badge variant="outline">Next.js</Badge>
+										<Badge variant="outline">Tailwind CSS</Badge>
+									</div>
+									<div className="flex justify-between pt-2">
+										<Button size="sm" asChild>
+											<Link href="https://mandsouha.netlify.app/" target="_blank" rel="noopener noreferrer">
+												<ExternalLink className="mr-2 h-4 w-4" /> Live Demo
+											</Link>
+										</Button>
+									</div>
+								</CardContent>
+							</Card>
 
-						<Card className="overflow-hidden">
-							<div className="relative h-48">
-								<Image src="/placeholder.svg?height=400&width=600" alt="TopCat Medical Placements Project" fill className="object-cover" />
-							</div>
-							<CardContent className="p-6 space-y-4">
-								<div className="space-y-2">
-									<h3 className="text-xl font-semibold">TopCat Medical Placements</h3>
-									<p className="text-muted-foreground">Healthcare placements platform.</p>
+							<Card className="overflow-hidden">
+								<div className="relative h-48 bg-muted flex items-center justify-center">
+									<Image src="https://www.topcatmedicalplcmts.com/logo.png" alt="TopCat Medical Placements Project" fill className="object-contain p-4" />
 								</div>
-								<div className="flex flex-wrap gap-2">
-									<Badge variant="outline">React</Badge>
-									<Badge variant="outline">CSS</Badge>
-								</div>
-								<div className="flex justify-between pt-2">
-									<Button size="sm" asChild>
-										<Link href="https://www.topcatmedicalplcmts.com/" target="_blank" rel="noopener noreferrer">
-											<ExternalLink className="mr-2 h-4 w-4" /> Live Demo
-										</Link>
-									</Button>
-								</div>
-							</CardContent>
-						</Card>
+								<CardContent className="p-6 space-y-4">
+									<div className="space-y-2">
+										<h3 className="text-xl font-semibold">TopCat Medical Placements</h3>
+										<p className="text-muted-foreground">Healthcare placements platform.</p>
+									</div>
+									<div className="flex flex-wrap gap-2">
+										<Badge variant="outline">React</Badge>
+										<Badge variant="outline">CSS</Badge>
+									</div>
+									<div className="flex justify-between pt-2">
+										<Button size="sm" asChild>
+											<Link href="https://www.topcatmedicalplcmts.com/" target="_blank" rel="noopener noreferrer">
+												<ExternalLink className="mr-2 h-4 w-4" /> Live Demo
+											</Link>
+										</Button>
+									</div>
+								</CardContent>
+							</Card>
 
-						<Card className="overflow-hidden">
-							<div className="relative h-48">
-								<Image src="/placeholder.svg?height=400&width=600" alt="Company Data Doctor Project" fill className="object-cover" />
-							</div>
-							<CardContent className="p-6 space-y-4">
-								<div className="space-y-2">
-									<h3 className="text-xl font-semibold">Company Data Doctor</h3>
-									<p className="text-muted-foreground">Company data insights tool.</p>
+							<Card className="overflow-hidden">
+								<div className="relative h-48 bg-muted flex items-center justify-center">
+									<Image src="/Company Data Doctor.png" alt="Company Data Doctor Project" fill className="object-contain p-4" />
 								</div>
-								<div className="flex flex-wrap gap-2">
-									<Badge variant="outline">Next.js</Badge>
-									<Badge variant="outline">Charts</Badge>
-								</div>
-								<div className="flex justify-between pt-2">
-									<Button size="sm" asChild>
-										<Link href="https://company-data-doctor.vercel.app/" target="_blank" rel="noopener noreferrer">
-											<ExternalLink className="mr-2 h-4 w-4" /> Live Demo
-										</Link>
-									</Button>
-								</div>
-							</CardContent>
-						</Card>
+								<CardContent className="p-6 space-y-4">
+									<div className="space-y-2">
+										<h3 className="text-xl font-semibold">Company Data Doctor</h3>
+										<p className="text-muted-foreground">Company data insights tool.</p>
+									</div>
+									<div className="flex flex-wrap gap-2">
+										<Badge variant="outline">Next.js</Badge>
+										<Badge variant="outline">Charts</Badge>
+									</div>
+									<div className="flex justify-between pt-2">
+										<Button size="sm" asChild>
+											<Link href="https://company-data-doctor.vercel.app/" target="_blank" rel="noopener noreferrer">
+												<ExternalLink className="mr-2 h-4 w-4" /> Live Demo
+											</Link>
+										</Button>
+									</div>
+								</CardContent>
+							</Card>
 
-						<Card className="overflow-hidden">
-							<div className="relative h-48">
-								<Image src="/placeholder.svg?height=400&width=600" alt="Arc Project" fill className="object-cover" />
-							</div>
-							<CardContent className="p-6 space-y-4">
-								<div className="space-y-2">
-									<h3 className="text-xl font-semibold">Arc</h3>
-									<p className="text-muted-foreground">Arc app demo.</p>
+							<Card className="overflow-hidden">
+								<div className="relative h-48 bg-muted flex items-center justify-center">
+									<Image src="/Arc Education.png" alt="Arc Project" fill className="object-contain p-4" />
 								</div>
-								<div className="flex flex-wrap gap-2">
-									<Badge variant="outline">React</Badge>
-									<Badge variant="outline">Tailwind CSS</Badge>
-								</div>
-								<div className="flex justify-between pt-2">
-									<Button size="sm" asChild>
-										<Link href="https://arc-theta-ten.vercel.app/" target="_blank" rel="noopener noreferrer">
-											<ExternalLink className="mr-2 h-4 w-4" /> Live Demo
-										</Link>
-									</Button>
-								</div>
-							</CardContent>
-						</Card>
+								<CardContent className="p-6 space-y-4">
+									<div className="space-y-2">
+										<h3 className="text-xl font-semibold">Arc</h3>
+										<p className="text-muted-foreground">Arc app demo.</p>
+									</div>
+									<div className="flex flex-wrap gap-2">
+										<Badge variant="outline">React</Badge>
+										<Badge variant="outline">Tailwind CSS</Badge>
+									</div>
+									<div className="flex justify-between pt-2">
+										<Button size="sm" asChild>
+											<Link href="https://arc-theta-ten.vercel.app/" target="_blank" rel="noopener noreferrer">
+												<ExternalLink className="mr-2 h-4 w-4" /> Live Demo
+											</Link>
+										</Button>
+									</div>
+								</CardContent>
+							</Card>
 						</div>
 					</div>
 				</section>
@@ -511,63 +642,30 @@ export default function Home() {
 				{/* Contact Section */}
 				<section id="contact" className="bg-muted/50 py-16 md:py-24">
 					<div className="container">
-						<div className="grid md:grid-cols-2 gap-8">
-							<div className="space-y-4">
+						<div className="max-w-2xl mx-auto">
+							<div className="space-y-4 text-center">
 								<h2 className="text-3xl font-bold tracking-tight">Get In Touch</h2>
 								<p className="text-lg">I'm currently open to new opportunities and collaborations. Feel free to reach out if you'd like to work together or just want to connect!</p>
 								<div className="space-y-3 pt-4">
-									<div className="flex items-center gap-3">
+									<div className="flex items-center justify-center gap-3">
 										<Mail className="h-5 w-5 text-primary" />
 										<a href="mailto:joshvolx@gmail.com" className="hover:text-primary transition-colors">
 											joshvolx@gmail.com
 										</a>
 									</div>
-									<div className="flex items-center gap-3">
-										<Linkedin className="h-5 w-5 text-primary" />
+									<div className="flex items-center justify-center gap-3">
+										<FaLinkedin className="h-5 w-5 text-primary" />
 										<a href="https://linkedin.com/in/joshua-olaoye" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
 											linkedin.com/in/joshua-olaoye
 										</a>
 									</div>
-									<div className="flex items-center gap-3">
-										<Github className="h-5 w-5 text-primary" />
+									<div className="flex items-center justify-center gap-3">
+										<FaGithub className="h-5 w-5 text-primary" />
 										<a href="https://github.com/jayhklasiq" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
 											github.com/jayhklasiq
 										</a>
 									</div>
 								</div>
-							</div>
-							<div className="space-y-4">
-								<form className="space-y-4">
-									<div className="grid gap-4 sm:grid-cols-2">
-										<div className="space-y-2">
-											<label htmlFor="name" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-												Name
-											</label>
-											<input id="name" className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Your name" />
-										</div>
-										<div className="space-y-2">
-											<label htmlFor="email" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-												Email
-											</label>
-											<input id="email" type="email" className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Your email" />
-										</div>
-									</div>
-									<div className="space-y-2">
-										<label htmlFor="subject" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-											Subject
-										</label>
-										<input id="subject" className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Subject" />
-									</div>
-									<div className="space-y-2">
-										<label htmlFor="message" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-											Message
-										</label>
-										<textarea id="message" className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Your message" />
-									</div>
-									<Button type="submit" className="w-full">
-										Send Message
-									</Button>
-								</form>
 							</div>
 						</div>
 					</div>
@@ -583,13 +681,13 @@ export default function Home() {
 					<div className="flex gap-4">
 						<Link href="https://github.com/jayhklasiq" target="_blank" rel="noopener noreferrer">
 							<Button variant="ghost" size="icon">
-								<Github className="h-5 w-5" />
+								<FaGithub className="h-5 w-5" />
 								<span className="sr-only">GitHub</span>
 							</Button>
 						</Link>
 						<Link href="https://linkedin.com/in/joshua-olaoye" target="_blank" rel="noopener noreferrer">
 							<Button variant="ghost" size="icon">
-								<Linkedin className="h-5 w-5" />
+								<FaLinkedin className="h-5 w-5" />
 								<span className="sr-only">LinkedIn</span>
 							</Button>
 						</Link>
